@@ -22,8 +22,20 @@ function SignUp() {
 			.required("You need to add a password")
 			.min(8, "Password must have at least 8 characters")
 			.matches(
-				/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+}{"':;?/>,.<|[\]\\\-]).*$/,
-				"Password must contain at least one uppercase letter, one numeric digit, and one special character"
+				/^(?=.*\d).*$/,
+				"Password need to be at least one digit"
+			)
+			.matches(
+				/^((?=.*[a-z]){1}).*$/,
+				" Verify if there is a lower case alphabetical character"
+			)
+			.matches(
+				/^((?=.*[A-Z]){1}).*$/,
+				"Verify if there is an upper case alphabetical character"
+			)
+			.matches(
+				/^((?=.[!@#$%^&()-=+{};:,<.>]){1}).*$/,
+				"Need to add at least one character for password"
 			)
 			.label("Password"),
 		confirmPassword: yup
