@@ -4,9 +4,14 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ErrorMessage } from "@hookform/error-message";
-import { useRef } from "react";
+import { useState } from "react";
+import axios from "axios";
 
 function AddProducts() {
+	const baseUrl = "https://dummyjson.com/products/add";
+
+	const [post, setPost] = useState([]);
+
 	// schema declaration with yup resolver
 	const addProductSchema = yup.object({
 		title: yup
@@ -19,7 +24,7 @@ function AddProducts() {
 		rating: yup.number().typeError("Rating is required").required(),
 		stock: yup.string().required().label("Stock"),
 		brand: yup.string().required().label("Brand"),
-		category: yup.number().required().label("Gender"),
+		category: yup.string().required().label("Category"),
 	});
 
 	// type SignUpSchemaType = yup.InferType<typeof addProductSchema>;
@@ -36,8 +41,26 @@ function AddProducts() {
 		resolver: yupResolver(addProductSchema),
 	});
 
-	const onSubmit = (data: AddProductSchema) => {
-		console.log(data);
+	const onSubmit = async (data: AddProductSchema) => {
+		// console.log(data);
+
+		try {
+			const response = await axios.post(baseUrl, data);
+			setPost(response.data);
+			// Optionally, you can clear the form fields after successful submission
+			setValue("title", "");
+			setValue("description", "");
+			setValue("price", "");
+			setValue("discountPercentage", "");
+			setValue("rating", 0);
+			setValue("stock", "");
+			setValue("brand", "");
+			setValue("category", "");
+
+			console.log(data);
+		} catch (error) {
+			console.error("Error while adding product:", error);
+		}
 	};
 
 	return (
@@ -83,7 +106,7 @@ function AddProducts() {
 					<Input {...register("brand")} />
 				</Input.Wrapper>
 				<Input.Wrapper label="Category" error={<ErrorMessage errors={errors} name="category" />}>
-					<Input {...register("brand")} />
+					<Input {...register("category")} />
 				</Input.Wrapper>
 				<Button type="submit" color="lime">
 					Add Product
