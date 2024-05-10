@@ -1,12 +1,12 @@
 import "./App.css";
 import { MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
-import SignUp from "./components/auth/SignUp";
+import ProductTable from "./components/products/ProductTable";
 
 function App() {
 	return (
 		<MantineProvider>
-			<SignUp></SignUp>
+			<ProductTable></ProductTable>
 		</MantineProvider>
 	);
 }

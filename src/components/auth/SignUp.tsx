@@ -65,7 +65,6 @@ function SignUp() {
 	return (
 		<BoxLayout>
 			<form
-				action=""
 				className="border border-cyan-400 p-5 max-w-[550px] rounded-md mx-auto my-24 flex flex-col gap-4"
 				onSubmit={handleSubmit(onSubmit)}
 			>
