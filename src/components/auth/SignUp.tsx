@@ -24,7 +24,7 @@ function SignUp() {
 			.matches(/^(?=.*\d).*$/, "Password need to be at least one digit")
 			.matches(/^((?=.*[a-z]){1}).*$/, " Verify if there is a lower case alphabetical character")
 			.matches(/^((?=.*[A-Z]){1}).*$/, "Verify if there is an upper case alphabetical character")
-			.matches(/^(?=.*[!@#$%^&()\-+=\{\};:,<.>]).*$/, "Password must contain at least one special character")
+			.matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}$/, "Password must contain at least one special character")
 			.label("Password"),
 		confirmPassword: yup
 			.string()
@@ -96,13 +96,6 @@ function SignUp() {
 							setValue("designation", value || "", { shouldValidate: true });
 						}}
 					/>
-
-					{/* <select className="border border-red-200 ml-2" {...register("designation")}>
-						<option value="">Select a designation</option>
-						<option value="1">Front-end dev</option>
-						<option value="2">Back-end dev</option>
-						<option value="3">Full-Stack dev</option>
-					</select> */}
 				</Input.Wrapper>
 
 				<Input.Wrapper label="Email" error={<ErrorMessage errors={errors} name="email" />}>
