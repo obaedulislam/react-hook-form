@@ -51,7 +51,15 @@ function SignUp() {
 	const password = useRef({});
 	password.current = watch("password", "");
 
-	const onSubmit = (data: SignUpSchemaType) => console.log(data);
+	const onSubmit = (data: SignUpSchemaType) => {
+		// Concatenate firstName and lastName to create fullName
+		const fullName = data.firstName + " " + data.lastName;
+		// Modify the data object to include fullName
+		const modifiedData = { ...data, fullName };
+		// Exclude firstName and lastName from modifiedData
+		const { firstName, lastName, ...cleanData } = modifiedData;
+		console.log(cleanData);
+	};
 
 	return (
 		<BoxLayout>
