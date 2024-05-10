@@ -14,11 +14,11 @@ function AddProducts() {
 			.required(({ label }) => `${label} is required`)
 			.label("First name"),
 		description: yup.string().required().label("Description"),
-		price: yup.string().required("You need select designation").label("Price"),
+		price: yup.string().required().label("Price"),
 		discountPercentage: yup.string().required().label("Discount Percentage"),
-		rating: yup.number().required(),
+		rating: yup.number().typeError("Rating is required").required(),
 		stock: yup.string().required().label("Stock"),
-		brand: yup.string().required(),
+		brand: yup.string().required().label("Brand"),
 		category: yup.number().required().label("Gender"),
 	});
 
