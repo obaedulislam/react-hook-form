@@ -5,6 +5,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 interface IProductsInterface {
+	id: number;
 	title: string;
 	description: string;
 	price: number;
@@ -119,7 +120,7 @@ function Products() {
 				</Table.Thead>
 				<Table.Tbody>
 					{products.map((product) => (
-						<Table.Tr>
+						<Table.Tr key={product.id}>
 							<Table.Td>{product.title}</Table.Td>
 							<Table.Td>{product.description}</Table.Td>
 							<Table.Td>{product.price}</Table.Td>
