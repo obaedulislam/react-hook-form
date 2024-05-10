@@ -21,22 +21,10 @@ function SignUp() {
 			.string()
 			.required("You need to add a password")
 			.min(8, "Password must have at least 8 characters")
-			.matches(
-				/^(?=.*\d).*$/,
-				"Password need to be at least one digit"
-			)
-			.matches(
-				/^((?=.*[a-z]){1}).*$/,
-				" Verify if there is a lower case alphabetical character"
-			)
-			.matches(
-				/^((?=.*[A-Z]){1}).*$/,
-				"Verify if there is an upper case alphabetical character"
-			)
-			.matches(
-				/^((?=.[!@#$%^&()-=+{};:,<.>]){1}).*$/,
-				"Need to add at least one character for password"
-			)
+			.matches(/^(?=.*\d).*$/, "Password need to be at least one digit")
+			.matches(/^((?=.*[a-z]){1}).*$/, " Verify if there is a lower case alphabetical character")
+			.matches(/^((?=.*[A-Z]){1}).*$/, "Verify if there is an upper case alphabetical character")
+			.matches(/^(?=.*[!@#$%^&()\-+=\{\};:,<.>]).*$/, "Password must contain at least one special character")
 			.label("Password"),
 		confirmPassword: yup
 			.string()
@@ -44,7 +32,7 @@ function SignUp() {
 			.required("Confirm Password is required"),
 
 		gender: yup.number().required().label("Gender"),
-		skills: yup.array().min(1, "At least one skill is required").required(),
+		skills: yup.array(yup.number()).typeError("At least one skill is required").min(2, "At least one skill is required").required(),
 	});
 
 	type SignUpSchemaType = yup.InferType<typeof signUpSchema>;
