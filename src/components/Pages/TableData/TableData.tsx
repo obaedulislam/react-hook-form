@@ -44,7 +44,9 @@ function TableData(){
                     <Table.Tr>
                         <Table.Th>First Name</Table.Th>
                         <Table.Th>Last Name</Table.Th>
+                        <Table.Th>Age</Table.Th>
                         <Table.Th>Gender</Table.Th>
+                        <Table.Th>Phone</Table.Th>
                         <Table.Th>Picture</Table.Th>
                     </Table.Tr>
                 </Table.Thead>
@@ -53,7 +55,9 @@ function TableData(){
                         <Table.Tr key={user.id}>
                             <Table.Td>{user.firstName}</Table.Td>
                             <Table.Td>{user.lastName}</Table.Td>
+                            <Table.Td>{user.age}</Table.Td>
                             <Table.Td>{user.gender}</Table.Td>
+                            <Table.Td>{user.phone}</Table.Td>
                             <Table.Td><img className="w-[100px]" src={user.image} alt="User" /></Table.Td>
                         </Table.Tr>
                     ))}
