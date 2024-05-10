@@ -14,7 +14,7 @@ function SignUp() {
 			.required(({ label }) => `${label} is required`)
 			.label("First name"),
 		lastName: yup.string().required().label("Last Name"),
-		designation: yup.number().required("You need select designation").label("Designation"),
+		designation: yup.string().required("You need select designation").label("Designation"),
 		email: yup.string().required().label("Email"),
 		age: yup.number().typeError("Please enter correct format age").required(),
 		password: yup
@@ -32,7 +32,7 @@ function SignUp() {
 			.required("Confirm Password is required"),
 
 		gender: yup.number().required().label("Gender"),
-		skills: yup.array(yup.number()).typeError("At least one skill is required").min(2, "At least one skill is required").required(),
+		skills: yup.array(yup.number()).typeError("At least two skill is required").min(2, "At least two skill is required").required(),
 	});
 
 	type SignUpSchemaType = yup.InferType<typeof signUpSchema>;
@@ -44,6 +44,7 @@ function SignUp() {
 		handleSubmit,
 		formState: { errors },
 		watch,
+		setValue,
 	} = useForm({
 		resolver: yupResolver(signUpSchema),
 	});
@@ -83,12 +84,25 @@ function SignUp() {
 					</Input.Wrapper>
 				</div>
 				<Input.Wrapper label="Designation" error={<ErrorMessage errors={errors} name="designation" />}>
-					<select className="border border-red-200 ml-2" {...register("designation")}>
+					<Select
+						placeholder="Select Designation"
+						data={[
+							{ value: "", label: "Select Designation" },
+							{ value: "1", label: "Front end dev" },
+							{ value: "2", label: "Back end dev" },
+							{ value: "3", label: "Full stack dev" },
+						]}
+						onChange={(value) => {
+							setValue("designation", value || "", { shouldValidate: true });
+						}}
+					/>
+
+					{/* <select className="border border-red-200 ml-2" {...register("designation")}>
 						<option value="">Select a designation</option>
 						<option value="1">Front-end dev</option>
 						<option value="2">Back-end dev</option>
 						<option value="3">Full-Stack dev</option>
-					</select>
+					</select> */}
 				</Input.Wrapper>
 
 				<Input.Wrapper label="Email" error={<ErrorMessage errors={errors} name="email" />}>
