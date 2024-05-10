@@ -38,7 +38,6 @@ function SignUp() {
 	type SignUpSchemaType = yup.InferType<typeof signUpSchema>;
 
 	// react hook form state manage
-
 	const {
 		register,
 		handleSubmit,
