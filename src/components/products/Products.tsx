@@ -3,7 +3,6 @@ import BoxLayout from "../layout/BoxLayout";
 
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import AddProducts from "./AddProducts";
 import { Button } from "@mantine/core";
 import AddProductsModal from "../AddProductsModal";
 
