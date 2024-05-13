@@ -73,19 +73,21 @@ function AddProductsModal({ selectedProduct, onModalClose }: { selectedProduct: 
 			let response;
 			if (selectedProduct) {
 				// Editing an existing product
-				axios.put(`https://dummyjson.com/products/1`, data).then((response) => {
+				axios.put(`https://dummyjson.com/products/${selectedProduct.id}`, data).then((response) => {
 					setPost(response.data);
 				});
 
-				response = await axios.put(`https://dummyjson.com/products/${selectedProduct.id}`, data);
+				// response = await axios.put(`https://dummyjson.com/products/${selectedProduct.id}`, data);
 				onModalClose();
 			} else {
 				// Adding a new product
-				response = await axios.post(baseUrl, data);
+				axios.post(`https://dummyjson.com/products`, data).then((response) => {
+					setPost(response.data);
+				});
 			}
 
 			// const response = await axios.post(baseUrl, data);
-			setPost(response.data);
+			// setPost(response.data);
 			// Optionally, you can clear the form fields after successful submission
 			setValue("title", "");
 			setValue("description", "");
