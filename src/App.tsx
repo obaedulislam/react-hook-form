@@ -10,7 +10,6 @@ function App() {
 		<MantineProvider>
 			{/* <SignUp></SignUp> */}
 
-			<AddProducts></AddProducts>
 			<Products></Products>
 		</MantineProvider>
 	);

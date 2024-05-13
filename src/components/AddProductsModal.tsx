@@ -1,12 +1,11 @@
+import React, { useEffect, useState } from "react";
+import BoxLayout from "./layout/BoxLayout";
 import { Button, Input } from "@mantine/core";
-import BoxLayout from "../layout/BoxLayout";
-import * as yup from "yup";
+import { ErrorMessage } from "@hookform/error-message";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { ErrorMessage } from "@hookform/error-message";
-import { useState } from "react";
 import axios from "axios";
-import { useEffect } from "react";
+import * as yup from "yup";
 
 interface IProductsInterface {
 	id: number;
@@ -20,7 +19,7 @@ interface IProductsInterface {
 	category: string;
 }
 
-function AddProducts({ selectedProduct }: { selectedProduct: IProductsInterface | null }) {
+function AddProductsModal({ selectedProduct }: { selectedProduct: IProductsInterface | null }) {
 	// UseEffect to populate form fields when selectedProduct changes
 	useEffect(() => {
 		if (selectedProduct) {
@@ -100,56 +99,52 @@ function AddProducts({ selectedProduct }: { selectedProduct: IProductsInterface 
 	};
 
 	return (
-		<BoxLayout>
-			<form
-				action=""
-				className="border border-lime-400 p-5 max-w-[550px] rounded-md mx-auto my-24 flex flex-col gap-4"
-				onSubmit={handleSubmit(onSubmit)}
-			>
-				<div className="gap-5">
-					<Input.Wrapper
-						label="Title"
-						error={<ErrorMessage errors={errors} name="title" render={({ message }) => <p className="text-red-500 text-xs mt-2">{message}</p>} />}
-					>
-						<Input {...register("title")} />
-					</Input.Wrapper>
-					<Input.Wrapper
-						label="Description"
-						error={
-							<ErrorMessage errors={errors} name="description" render={({ message }) => <p className="text-red-500 text-xs mt-2">{message}</p>} />
-						}
-					>
-						<Input {...register("description")} />
-					</Input.Wrapper>
-				</div>
+		<form
+			action=""
+			className="border border-lime-400 p-5 max-w-[550px] rounded-md mx-auto my-24 flex flex-col gap-4"
+			onSubmit={handleSubmit(onSubmit)}
+		>
+			<div className="gap-5">
 				<Input.Wrapper
-					label="Price"
-					error={<ErrorMessage errors={errors} name="price" render={({ message }) => <p className="text-red-500 text-xs mt-2">{message}</p>} />}
+					label="Title"
+					error={<ErrorMessage errors={errors} name="title" render={({ message }) => <p className="text-red-500 text-xs mt-2">{message}</p>} />}
 				>
-					<Input {...register("price")} />
+					<Input {...register("title")} />
 				</Input.Wrapper>
+				<Input.Wrapper
+					label="Description"
+					error={<ErrorMessage errors={errors} name="description" render={({ message }) => <p className="text-red-500 text-xs mt-2">{message}</p>} />}
+				>
+					<Input {...register("description")} />
+				</Input.Wrapper>
+			</div>
+			<Input.Wrapper
+				label="Price"
+				error={<ErrorMessage errors={errors} name="price" render={({ message }) => <p className="text-red-500 text-xs mt-2">{message}</p>} />}
+			>
+				<Input {...register("price")} />
+			</Input.Wrapper>
 
-				<Input.Wrapper label="Discount Percentage" error={<ErrorMessage errors={errors} name="discountPercentage" />}>
-					<Input {...register("discountPercentage")} />
-				</Input.Wrapper>
-				<Input.Wrapper label="Rating" error={<ErrorMessage errors={errors} name="rating" />}>
-					<Input placeholder="" {...register("rating")} />
-				</Input.Wrapper>
-				<Input.Wrapper label="Stock" error={<ErrorMessage errors={errors} name="stock" />}>
-					<Input {...register("stock")} />
-				</Input.Wrapper>
-				<Input.Wrapper label="Brand" error={<ErrorMessage errors={errors} name="brand" />}>
-					<Input {...register("brand")} />
-				</Input.Wrapper>
-				<Input.Wrapper label="Category" error={<ErrorMessage errors={errors} name="category" />}>
-					<Input {...register("category")} />
-				</Input.Wrapper>
-				<Button type="submit" color="lime">
-					{selectedProduct ? "Edit Product" : "Add Product"}
-				</Button>
-			</form>
-		</BoxLayout>
+			<Input.Wrapper label="Discount Percentage" error={<ErrorMessage errors={errors} name="discountPercentage" />}>
+				<Input {...register("discountPercentage")} />
+			</Input.Wrapper>
+			<Input.Wrapper label="Rating" error={<ErrorMessage errors={errors} name="rating" />}>
+				<Input placeholder="" {...register("rating")} />
+			</Input.Wrapper>
+			<Input.Wrapper label="Stock" error={<ErrorMessage errors={errors} name="stock" />}>
+				<Input {...register("stock")} />
+			</Input.Wrapper>
+			<Input.Wrapper label="Brand" error={<ErrorMessage errors={errors} name="brand" />}>
+				<Input {...register("brand")} />
+			</Input.Wrapper>
+			<Input.Wrapper label="Category" error={<ErrorMessage errors={errors} name="category" />}>
+				<Input {...register("category")} />
+			</Input.Wrapper>
+			<Button type="submit" color="lime">
+				{selectedProduct ? "Edit Product" : "Add Product"}
+			</Button>
+		</form>
 	);
 }
 
-export default AddProducts;
+export default AddProductsModal;

@@ -1,8 +1,11 @@
-import { Table } from "@mantine/core";
+import { Modal, Table } from "@mantine/core";
 import BoxLayout from "../layout/BoxLayout";
 
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import AddProducts from "./AddProducts";
+import { Button } from "@mantine/core";
+import AddProductsModal from "../AddProductsModal";
 
 interface IProductsInterface {
 	id: number;
@@ -17,8 +20,28 @@ interface IProductsInterface {
 }
 
 function Products() {
+	// modal handling
+
+	const [modalOpened, setModalOpened] = useState(false);
+
+	const modalOpen = () => {
+		setModalOpened(!modalOpened);
+	};
+
 	const baseURL = "https://dummyjson.com/products";
 	const [products, setElement] = useState<IProductsInterface[]>([]);
+
+	// State to store selected product data
+	const [selectedProduct, setSelectedProduct] = useState<IProductsInterface | null>(null);
+
+	// Function to handle edit click
+	const handleEdit = (product: IProductsInterface) => {
+		setSelectedProduct(product);
+	};
+
+	const handleDelete = (product: IProductsInterface) => {
+		console.log(product.id);
+	};
 
 	useEffect(() => {
 		axios.get(baseURL).then((response) => {
@@ -30,6 +53,19 @@ function Products() {
 
 	return (
 		<BoxLayout>
+			{/* <AddProducts selectedProduct={selectedProduct}></AddProducts> */}
+
+			<div className="flex justify-end mt-5">
+				<Button className="" variant="gradient" gradient={{ from: "blue", to: "cyan", deg: 90 }} onClick={modalOpen}>
+					Add Product
+				</Button>
+			</div>
+
+			<div>
+				<Modal opened={modalOpened} onClose={modalOpen} title="Add Products" centered>
+					<AddProductsModal selectedProduct={selectedProduct} />
+				</Modal>
+			</div>
 			<Table>
 				<Table.Thead>
 					<Table.Tr>
@@ -41,6 +77,7 @@ function Products() {
 						<Table.Th>Stock</Table.Th>
 						<Table.Th>Brand</Table.Th>
 						<Table.Th>Category</Table.Th>
+						<Table.Th>Action</Table.Th>
 					</Table.Tr>
 				</Table.Thead>
 				<Table.Tbody>
@@ -54,6 +91,11 @@ function Products() {
 							<Table.Td>{product.stock}</Table.Td>
 							<Table.Td>{product.brand}</Table.Td>
 							<Table.Td>{product.category}</Table.Td>
+							<Table.Td>
+								<a onClick={() => handleEdit(product)}>Edit</a>
+								<br />
+								<a onClick={() => handleDelete(product)}>Delete</a>
+							</Table.Td>
 						</Table.Tr>
 					))}
 				</Table.Tbody>
