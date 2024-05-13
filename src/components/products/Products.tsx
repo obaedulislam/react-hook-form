@@ -36,6 +36,8 @@ function Products() {
 	// Function to handle edit click
 	const handleEdit = (product: IProductsInterface) => {
 		setSelectedProduct(product);
+
+		setModalOpened(!modalOpened);
 	};
 
 	const handleDelete = (product: IProductsInterface) => {
@@ -52,8 +54,6 @@ function Products() {
 
 	return (
 		<BoxLayout>
-			{/* <AddProducts selectedProduct={selectedProduct}></AddProducts> */}
-
 			<div className="flex justify-end mt-5">
 				<Button className="" variant="gradient" gradient={{ from: "blue", to: "cyan", deg: 90 }} onClick={modalOpen}>
 					Add Product
