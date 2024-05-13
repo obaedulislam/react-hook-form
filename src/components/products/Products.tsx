@@ -62,7 +62,7 @@ function Products() {
 
 			<div>
 				<Modal opened={modalOpened} onClose={modalOpen} title="Add Products" centered>
-					<AddProductsModal selectedProduct={selectedProduct} />
+					<AddProductsModal selectedProduct={selectedProduct} onModalClose={modalOpen} />
 				</Modal>
 			</div>
 			<Table>

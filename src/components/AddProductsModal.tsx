@@ -18,7 +18,7 @@ interface IProductsInterface {
 	category: string;
 }
 
-function AddProductsModal({ selectedProduct }: { selectedProduct: IProductsInterface | null }) {
+function AddProductsModal({ selectedProduct, onModalClose }: { selectedProduct: IProductsInterface | null; onModalClose: () => void }) {
 	// UseEffect to populate form fields when selectedProduct changes
 	useEffect(() => {
 		if (selectedProduct) {
@@ -74,6 +74,7 @@ function AddProductsModal({ selectedProduct }: { selectedProduct: IProductsInter
 			if (selectedProduct) {
 				// Editing an existing product
 				response = await axios.put(`https://dummyjson.com/products/${selectedProduct.id}`, data);
+				onModalClose();
 			} else {
 				// Adding a new product
 				response = await axios.post(baseUrl, data);
