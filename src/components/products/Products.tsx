@@ -36,12 +36,14 @@ function Products() {
 	// Function to handle edit click
 	const handleEdit = (product: IProductsInterface) => {
 		setSelectedProduct(product);
-
 		setModalOpened(!modalOpened);
 	};
 
 	const handleDelete = (product: IProductsInterface) => {
-		console.log(product.id);
+		axios.delete(`${baseURL}/${product.id}`).then(() => {
+			alert("Post deleted!");
+			// setPost(null)
+		});
 	};
 
 	useEffect(() => {
@@ -61,7 +63,7 @@ function Products() {
 			</div>
 
 			<div>
-				<Modal opened={modalOpened} onClose={modalOpen} title="Add Products" centered>
+				<Modal opened={modalOpened} onClose={modalOpen} title="Products" centered>
 					<AddProductsModal selectedProduct={selectedProduct} onModalClose={modalOpen} />
 				</Modal>
 			</div>

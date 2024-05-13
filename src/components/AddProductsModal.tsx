@@ -73,6 +73,10 @@ function AddProductsModal({ selectedProduct, onModalClose }: { selectedProduct: 
 			let response;
 			if (selectedProduct) {
 				// Editing an existing product
+				axios.put(`https://dummyjson.com/products/1`, data).then((response) => {
+					setPost(response.data);
+				});
+
 				response = await axios.put(`https://dummyjson.com/products/${selectedProduct.id}`, data);
 				onModalClose();
 			} else {
